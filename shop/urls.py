@@ -22,6 +22,8 @@ from main.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', indexHandler),
+    path('blog/', blogHandler),
+    path('blog/<int:blog_detail_id>/', blog_detailHandler),
     path('about', aboutHandler),
     path('contact', contactHandler),
     path('shop/<int:catalog_id>', shopHandler),

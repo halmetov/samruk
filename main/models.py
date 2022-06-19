@@ -76,6 +76,76 @@ class Product(models.Model):
         return self.title
 
 
+class Main(models.Model):
+    title = models.CharField(max_length=300, blank=True)
+    title1 = models.CharField(max_length=300, blank=True)
+    main_info = models.CharField(max_length=300, blank=True)
+    logo = models.ImageField(upload_to='upload', blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+
+class Service(models.Model):
+    title = models.CharField(max_length=300)
+    logo = models.ImageField(upload_to='upload')
+    description = models.TextField(blank=True)
+    status = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.title
+
+
+
+class BlogCategory(models.Model):
+    title = models.CharField(max_length=300)
+    is_main = models.BooleanField(blank=True)
+    status = models.IntegerField(default=0, blank=True)
+    rating = models.IntegerField(default=0, blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+
+
+class Blog(models.Model):
+    which_one = models.ForeignKey(BlogCategory, on_delete=models.CASCADE, default=True)
+    title = models.CharField(max_length=300)
+    author = models.CharField(max_length=300, blank=True)
+    main_description = models.CharField(max_length=300)
+    more_description = models.TextField(blank=True)
+    main_logo = models.ImageField(upload_to='upload')
+    logo1 = models.ImageField(upload_to='upload', blank=True)
+    logo2 = models.ImageField(upload_to='upload', blank=True)
+    date = models.DateField()
+    is_latest = models.BooleanField(blank=True)
+    facebook = models.CharField(max_length=300, blank=True)
+    gmail = models.CharField(max_length=300, blank=True)
+    twitter = models.CharField(max_length=300, blank=True)
+    whatsapp = models.CharField(max_length=300, blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+class BlogQoute(models.Model):
+    first_name = models.CharField(max_length=300)
+    last_name = models.CharField(max_length=300)
+    description = models.TextField()
+    action = models.ForeignKey(Blog, on_delete=models.CASCADE, blank=True)
+
+    def __str__(self):
+        return self.first_name
+
+
+class Sponsor(models.Model):
+    title = models.CharField(max_length=300, blank=True)
+    logo = models.ImageField(upload_to='upload')
+
+    def __str__(self):
+        return self.title
 
 
 

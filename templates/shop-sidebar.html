@@ -56,7 +56,7 @@
                     <ul data-aos="fade-up">
                         <li><a href="/">Главная</a></li>
                         <li><i class="ti-angle-right"></i></li>
-                        <li>{{ catalog.title }}</li>
+                        <li>Магазин</li>
                     </ul>
                 </div>
             </div>
@@ -92,16 +92,17 @@
                         <div class="shop-topbar-wrapper mb-40">
                             <div class="shop-topbar-left" data-aos="fade-up" data-aos-delay="200">
                                 <div class="showing-item">
-                                    <span>Showing 1–12 of 60 results</span>
+                                    <span>Показаны {{ start }}-{{ stop }} из {{ total }} полученные результаты</span>
                                 </div>
                             </div>
                             <div class="shop-topbar-right" data-aos="fade-up" data-aos-delay="400">
                                 <div class="shop-sorting-area">
-                                    <select class="nice-select nice-select-style-1">
-                                        <option>Default Sorting</option>
-                                        <option>Sort by popularity</option>
-                                        <option>Sort by average rating</option>
-                                        <option>Sort by latest</option>
+                                    <select class="nice-select nice-select-style-1 js-filter" name="sort_key">
+                                        <option value="popular" {% if sort_key == 'popular' %} selected="selected" {% endif %}>Популярные</option>
+                                        <option value="new" {% if sort_key == 'new' %} selected="selected" {% endif %}>Новинки</option>
+                                        <option value="dewevprice" {% if sort_key == 'dewevprice' %} selected="selected" {% endif %}>Сначала дешевые</option>
+                                        <option value="dorogprice" {% if sort_key == 'dorogprice' %} selected="selected" {% endif %}>Сначала дорогие</option>
+                                        <option value="reyting" {% if sort_key == 'reyting' %} selected="selected" {% endif %}>Высокий рейтинг</option>
                                     </select>
                                 </div>
                                 <div class="shop-view-mode nav">
@@ -126,13 +127,13 @@
                                                         <span>{% if discount %} - {{ pr.discount }}% {% endif %}</span>
                                                     </div>
                                                     <div class="product-action-wrap">
-                                                        <button class="product-action-btn-1" title="Wishlist"><i class="pe-7s-like"></i></button>
-                                                        <button class="product-action-btn-1" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<!--                                                        <button class="product-action-btn-1" title="Wishlist"><i class="pe-7s-like"></i></button>-->
+                                                        <button class="product-action-btn-1" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal{{pr.id}}">
                                                             <i class="pe-7s-look"></i>
                                                         </button>
                                                     </div>
                                                     <div class="product-action-2-wrap">
-                                                        <button class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Add to cart</button>
+                                                        <a href="{{ pr.kaspi_link }}"   class="product-action-btn-2" title="Add To Cart"><i class="pe-7s-cart"></i> Купить через Kaspi</a>
                                                     </div>
                                                 </div>
                                                 <div class="product-content">
@@ -146,7 +147,7 @@
                                         </div>
 
                                                 <!-- Product Modal start -->
-                                        <div class="modal fade quickview-modal-style" id="exampleModal" tabindex="-1" role="dialog">
+                                        <div class="modal fade quickview-modal-style" id="exampleModal{{pr.id}}" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -174,10 +175,10 @@
                                             <i class=" ti-star"></i>
                                             <i class=" ti-star"></i>
                                         </div>
-                                        <span>( 1 Customer Review )</span>
+<!--                                        <span>( 1 Customer Review )</span>-->
                                     </div>
                                     <div class="product-color product-color-active product-details-color">
-                                        <span>Color :</span>
+                                        <span>Цвет :</span>
                                         <ul>
                                             <li><a title="Pink" class="pink" href="#">pink</a></li>
                                             <li><a title="Yellow" class="active yellow" href="#">yellow</a></li>
@@ -190,14 +191,14 @@
                                             <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="1">
                                         </div>
                                         <div class="single-product-cart btn-hover">
-                                            <a href="#">Add to cart</a>
+                                            <a href="{{ pr.kaspi_link }}">Купить через Kaspi</a>
                                         </div>
-                                        <div class="single-product-wishlist">
-                                            <a title="Wishlist" href="#"><i class="pe-7s-like"></i></a>
-                                        </div>
-                                        <div class="single-product-compare">
-                                            <a title="Compare" href="#"><i class="pe-7s-shuffle"></i></a>
-                                        </div>
+<!--                                        <div class="single-product-wishlist">-->
+<!--                                            <a title="Wishlist" href="#"><i class="pe-7s-like"></i></a>-->
+<!--                                        </div>-->
+<!--                                        <div class="single-product-compare">-->
+<!--                                            <a title="Compare" href="#"><i class="pe-7s-shuffle"></i></a>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +238,7 @@
                                                         <span>{% if discount %} -{{ pr.discount }}% {% endif %}</span>
                                                     </div>
                                                     <div class="product-list-quickview">
-                                                        <button class="product-action-btn-2" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        <button class="product-action-btn-2" title="Quick View" data-bs-toggle="modal" data-bs-target="#exampleModall{{pr.id}}">
                                                             <i class="pe-7s-look"></i>
                                                         </button>
                                                     </div>
@@ -267,6 +268,69 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                     <!-- Product Modal start -->
+                                        <div class="modal fade quickview-modal-style" id="exampleModall{{pr.id}}" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close"><i class=" ti-close "></i></a>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row gx-0">
+                            <div class="col-lg-5 col-md-5 col-12">
+                                <div class="modal-img-wrap">
+                                    <img src="/media/{{ pr.logo }}" style="object-fit:cover" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-12">
+                                <div class="product-details-content quickview-content">
+                                    <h2>{{ pr.title }}</h2>
+                                    <div class="product-details-price">
+                                        <span class="old-price">{% if old_price %}{{ pr.old_price }} тг{% endif %}</span>
+                                                        <span class="new-price">{{ pr.new_price }} тг</span>
+                                    </div>
+                                    <div class="product-details-review">
+                                        <div class="product-rating">
+                                            <i class=" ti-star"></i>
+                                            <i class=" ti-star"></i>
+                                            <i class=" ti-star"></i>
+                                            <i class=" ti-star"></i>
+                                            <i class=" ti-star"></i>
+                                        </div>
+<!--                                        <span>( 1 Customer Review )</span>-->
+                                    </div>
+                                    <div class="product-color product-color-active product-details-color">
+                                        <span>Цвет :</span>
+                                        <ul>
+                                            <li><a title="Pink" class="pink" href="#">pink</a></li>
+                                            <li><a title="Yellow" class="active yellow" href="#">yellow</a></li>
+                                            <li><a title="Purple" class="purple" href="#">purple</a></li>
+                                        </ul>
+                                    </div>
+                                    <p>{{ pr.short_description }}</p>
+                                    <div class="product-details-action-wrap">
+                                        <div class="product-quality">
+                                            <input class="cart-plus-minus-box input-text qty text" name="qtybutton" value="1">
+                                        </div>
+                                        <div class="single-product-cart btn-hover">
+                                            <a href="{{ pr.kaspi_link }}">Купить через Kaspi</a>
+                                        </div>
+<!--                                        <div class="single-product-wishlist">-->
+<!--                                            <a title="Wishlist" href="#"><i class="pe-7s-like"></i></a>-->
+<!--                                        </div>-->
+<!--                                        <div class="single-product-compare">-->
+<!--                                            <a title="Compare" href="#"><i class="pe-7s-shuffle"></i></a>-->
+<!--                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                <!-- Product Modal end -->
                                     {% endif %}
                                     {% endfor %}
                                     <div class="pagination-style-1" data-aos="fade-up" data-aos-delay="200">
@@ -310,61 +374,52 @@
 <!--                                    </div>-->
 <!--                                </div>-->
 <!--                            </div>-->
-                            <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">
-                                <div class="sidebar-widget-title mb-25">
-                                    <h3>Категории</h3>
+                                <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">
+                                    <div class="sidebar-widget-title mb-25">
+                                        <h3>Категории</h3>
+                                    </div>
+                                    <div class="sidebar-list-style">
+                                        <ul>
+                                            {% for i in categories %}
+                                            <li><a href="/shop/catalog/{{ i.id }}">{{ i }} <span>{{ i.pr_amount }}</span></a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="sidebar-list-style">
-                                    <ul>
-                                        {% for i in categories %}
-                                        <li><a href="shop.html">{{ i }} <span>{{ i }}</span></a></li>
-                                        {% endfor %}
-                                    </ul>
+                                <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">
+                                    <div class="sidebar-widget-title mb-25">
+                                        <h3>Choose Colour</h3>
+                                    </div>
+                                    <div class="sidebar-widget-color sidebar-list-style">
+                                        <ul>
+                                            {% for col in colors %}
+                                            <li><a class="{{col.code}}" href="#">{{col.title}} <span>{{ col.col_amount }}</span></a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">
-                                <div class="sidebar-widget-title mb-25">
-                                    <h3>Choose Colour</h3>
-                                </div>
-                                <div class="sidebar-widget-color sidebar-list-style">
-                                    <ul>
-                                        <li><a class="black" href="#">Black <span>4</span></a></li>
-                                        <li><a class="blue" href="#">Blue <span>9</span></a></li>
-                                        <li><a class="brown" href="#">Brown <span>5</span></a></li>
-                                        <li><a class="red" href="#">Red <span>3</span></a></li>
-                                        <li><a class="orange" href="#">Orange <span>4</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">
-                                <div class="sidebar-widget-title mb-25">
-                                    <h3>Size</h3>
-                                </div>
-                                <div class="sidebar-widget-size sidebar-list-style">
-                                    <ul>
-                                        <li><a href="#">XL <span>4</span></a></li>
-                                        <li><a href="#">M <span>9</span></a></li>
-                                        <li><a href="#">LM <span>5</span></a></li>
-                                        <li><a href="#">L <span>3</span></a></li>
-                                        <li><a href="#">ML <span>4</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
+<!--                            <div class="sidebar-widget sidebar-widget-border mb-40 pb-35" data-aos="fade-up" data-aos-delay="200">-->
+<!--                                <div class="sidebar-widget-title mb-25">-->
+<!--                                    <h3>Size</h3>-->
+<!--                                </div>-->
+<!--                                <div class="sidebar-widget-size sidebar-list-style">-->
+<!--                                    <ul>-->
+<!--                                        <li><a href="#">XL <span>4</span></a></li>-->
+<!--                                        <li><a href="#">M <span>9</span></a></li>-->
+<!--                                        <li><a href="#">LM <span>5</span></a></li>-->
+<!--                                        <li><a href="#">L <span>3</span></a></li>-->
+<!--                                        <li><a href="#">ML <span>4</span></a></li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
                             <div class="sidebar-widget" data-aos="fade-up" data-aos-delay="200">
                                 <div class="sidebar-widget-title mb-25">
-                                    <h3>Tags</h3>
+                                    <h3>Каталог</h3>
                                 </div>
                                 <div class="sidebar-widget-tag">
-                                    <a href="#">All, </a>
-                                    <a href="#">Clothing, </a>
-                                    <a href="#"> Kids, </a>
-                                    <a href="#">Accessories, </a>
-                                    <a href="#">Stationery, </a>
-                                    <a href="#">Homelife, </a>
-                                    <a href="#">Appliances, </a>
-                                    <a href="#">Clothing, </a>
-                                    <a href="#">Baby, </a>
-                                    <a href="#">Beauty </a>
+                                    {% for ct in catalogs %}
+                                    <a href="/shop/{{ ct.id }}">{{ ct.title }}</a>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -373,5 +428,20 @@
             </div>
         </div>
 
+    <script>
+
+    $('.js-filter').change(function(){
+        var path = '';
+
+        $('.js-filter').each(function(a,b){
+            path += '&' + $(b).attr('name') +'=' + $(b).val();
+        })
+
+        location.search = '?qweqwe=qweqwe' + path;
+
+        return false;
+    })
+
+</script>
 
         {% endblock %}

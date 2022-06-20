@@ -15,6 +15,7 @@ class Category(models.Model):
     title = models.CharField(max_length=300)
     logo = models.ImageField(upload_to='upload')
     is_main = models.BooleanField()
+    pr_amount = models.IntegerField(blank=True,default=0)
 
     def __str__(self):
         return self.title
@@ -25,6 +26,7 @@ class CategoryType(models.Model):
     title = models.CharField(max_length=300)
     logo = models.ImageField(upload_to='upload')
     is_main = models.BooleanField()
+    pr_amount = models.IntegerField(blank=True, default=0)
 
     def __str__(self):
         return self.title
@@ -34,6 +36,7 @@ class CategorySize(models.Model):
     title = models.CharField(max_length=300)
     logo = models.ImageField(upload_to='upload')
     is_main = models.BooleanField()
+    pr_amount = models.IntegerField(blank=True, default=0)
 
     def __str__(self):
         return self.title
@@ -48,6 +51,8 @@ class Size(models.Model):
 class Color(models.Model):
     title = models.CharField(max_length=300)
     is_main = models.BooleanField()
+    code = models.CharField(max_length=100,blank=True)
+    col_amount = models.IntegerField(default=0,blank=True)
 
     def __str__(self):
         return self.title

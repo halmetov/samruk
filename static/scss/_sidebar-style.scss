@@ -221,7 +221,32 @@
                         }
                         &.orange {
                             &:before {
+                                background-color: #f2f3f4;
+                            }
+                        }
+                        &.belt {
+                            &:before {
                                 background-color: #ffba00;
+                            }
+                        }
+                        &.jelt {
+                            &:before {
+                                background-color: #f9d71c;
+                            }
+                        }
+                        &.orex {
+                            &:before {
+                                background-color: #ffba00;
+                            }
+                        }
+                        &.shok {
+                            &:before {
+                                background-color: #d2691e;
+                            }
+                        }
+                        &.serb {
+                            &:before {
+                                background-color: #c0c0c0;
                             }
                         }
                     }

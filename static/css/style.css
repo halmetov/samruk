@@ -8990,7 +8990,25 @@ textarea {
 .sidebar-widget .sidebar-list-style.sidebar-widget-color ul li a.orange:before {
   background-color: #ffba00;
 }
+.sidebar-widget .sidebar-list-style.sidebar-widget-color ul li a.belt:before {
+  background-color: #ffba00;
+}
 
+.sidebar-widget .sidebar-list-style.sidebar-widget-color ul li a.jelt:before {
+  background-color: #f9d71c;
+}
+
+.sidebar-widget .sidebar-list-style.sidebar-widget-color ul li a.orex:before {
+  background-color: #b2aaaa;
+}
+
+.sidebar-widget .sidebar-list-style.sidebar-widget-color ul li a.shok:before {
+  background-color: #d2691e;
+}
+
+.sidebar-widget .sidebar-list-style.sidebar-widget-color ul li a.serb:before {
+  background-color: #c0c0c0;
+}
 .sidebar-widget .sidebar-widget-tag a {
   color: #575757;
   font-weight: 300;

@@ -22,6 +22,8 @@ from main.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', indexHandler),
+    path('blog/', blogHandler),
+    path('blog/<int:blog_detail_id>/', blog_detailHandler),
     path('about', aboutHandler),
     path('contact', contactHandler),
     path('shop/<int:catalog_id>', shopHandler),
@@ -29,6 +31,7 @@ urlpatterns = [
     path('shop/catalog/category/<int:cattype_id>', shopcattypeHandler),
     path('shop/catalog/category/type/<int:catsize_id>', shopcatsizeHandler),
 
+    path('product/<int:pr_id>', productHandler),
 
     url(r'^media/(?P<path>.*)$', serve, {
         'document_root': settings.MEDIA_ROOT

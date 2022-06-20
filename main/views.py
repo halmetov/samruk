@@ -12,8 +12,76 @@ from django.db.models import Q
 # Create your views here.
 
 def indexHandler(request):
+    services = Service.objects.all()
+    products = Product.objects.all()
+    new_products = Product.objects.filter(is_new=True)
+    bs_products = Product.objects.filter(is_best_seller=True)
+    sponsors = Sponsor.objects.all()
+    blogs = Blog.objects.filter()
+    mains = Main.objects.all()[:3]
+    catalogs = Catalog.objects.all()[:2]
+
+
     return render(request, 'index-5.html', {
+        'services': services,
+        'products': products,
+        'catalogs': catalogs,
+        'new_products': new_products,
+        'bs_products': bs_products,
+        'sponsors': sponsors,
+        'blogs': blogs,
+        'mains': mains
+
     })
+
+
+def blogHandler(request):
+    which_one_id = int(request.GET.get('which_one_id', 0))
+
+    limit = int(request.GET.get('limit', 2))
+    current_page = int(request.GET.get('page', 1))
+    stop = current_page * limit
+    start = stop - limit
+
+    if which_one_id:
+        blogs = Blog.objects.filter(which_one__id=which_one_id)[start:stop]
+        total = Blog.objects.filter(which_one__id=which_one_id).count()
+    else:
+        blogs = Blog.objects.filter()[start:stop]
+        total = Blog.objects.count()
+
+    prev_page = current_page - 1
+    next_page = 0
+    if total > stop:
+        next_page = current_page + 1
+
+    categories = BlogCategory.objects.filter()
+    return render(request, 'blog.html', {
+        'current_page': current_page,
+        'prev_page': prev_page,
+        'next_page': next_page,
+        'total': total,
+        'limit': limit,
+        'blogs': blogs,
+        'which_one_id': which_one_id,
+        'categories': categories,
+
+    })
+
+
+def blog_detailHandler(request, blog_detail_id):
+    blog_detail = Blog.objects.get(id=int(blog_detail_id))
+    blog_quote = BlogQoute.objects.all()
+    categories = BlogCategory.objects.filter()
+    latest_blogs = Blog.objects.filter(is_latest=True)
+
+    return render(request, 'blog-details.html', {
+        'blog_detail': blog_detail,
+        'categories': categories,
+        'blog_quote': blog_quote,
+        'latest_blogs': latest_blogs
+    })
+
 
 
 def aboutHandler(request):
@@ -213,3 +281,14 @@ def shopcatsizeHandler(request, catsize_id):
         'current_page': current_page,
     })
 
+def productHandler(request, pr_id):
+
+    pr = Product.objects.get(id=int(pr_id))
+    colors = Color.objects.all()
+    sizes = Size.objects.all()
+
+    return render(request, 'product-details-2.html', {
+        'pr': pr,
+        'colors': colors,
+        'sizes': sizes
+    })

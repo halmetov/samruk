@@ -152,6 +152,68 @@ class Sponsor(models.Model):
     def __str__(self):
         return self.title
 
+class About(models.Model):
+    title = models.CharField(max_length=300)
+    description = models.TextField()
+    photo = models.ImageField(upload_to='upload')
+
+
+    def _str_(self):
+        return self.title
+
+
+class Comment(models.Model):
+    first_name = models.CharField(max_length=300)
+    last_name = models.CharField(max_length=300)
+    position = models.CharField(max_length=300)
+    description = models.TextField()
+    photo = models.ImageField(upload_to='upload')
+
+    def _str_(self):
+        return self.first_name
+
+
+class Statistics(models.Model):
+    title = models.CharField(max_length=300)
+    count = models.CharField(max_length=300)
+    logo = models.ImageField(upload_to='upload')
+
+    def _str_(self):
+        return self.title
+
+class Staff(models.Model):
+    first_name = models.CharField(max_length=300)
+    last_name = models.CharField(max_length=300)
+    position = models.CharField(max_length=300)
+    photo = models.ImageField(upload_to='upload')
+
+    def _str_(self):
+        return self.first_name
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=300, blank=True)
+    address = models.CharField(max_length=300, blank=True)
+    phone = models.CharField(max_length=300, blank=True)
+    instagram = models.CharField(max_length=300, blank=True)
+    whatsapp = models.CharField(max_length=300, blank=True)
+    time = models.CharField(max_length=300, blank=True)
+    karta = models.CharField(max_length=300, blank=True)
+
+    def _str_(self):
+        return self.name
+
+
+class Register(models.Model):
+    last_name = models.CharField(max_length=300)
+    first_name = models.CharField(max_length=300)
+    phone = models.CharField(max_length=300)
+    email = models.CharField(max_length=300)
+    message = models.TextField()
+
+    def _str_(self):
+        return self.last_name
+
 
 
 

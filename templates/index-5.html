@@ -95,9 +95,12 @@
 
         <div class="banner-area pt-100 pb-70">
             <div class="container">
+                <div class="section-title-2 border-none text-center mb-30" data-aos="fade-up" data-aos-delay="200">
+                    <h2 class="mb-30">Наш каталог</h2>
+                </div>
                 <div class="row">
                     {% for catalog in catalogs %}
-                    <div class="col-lg-6 col-md-6 col-12">
+                    <div class="col-lg-4 col-md-4 col-12">
                         <div class="banner-wrap mb-30" data-aos="fade-up" data-aos-delay="200">
                             <a href="product-details.html">
                                 <img src="/media/{{ catalog.logo }}" alt="" style="object-fit: cover; width: 540px; height: 340px;">
@@ -105,7 +108,7 @@
                             <div class="banner-content-5">
                                 <h2>{{ catalog.title }}</h2>
                                 <div class="btn-style-3 btn-hover">
-                                    <a class="btn hover-border-radius" href="product-details.html">Показать</a>
+                                    <a class="btn hover-border-radius" href="/shop/{{ catalog.id }}">Показать</a>
                                 </div>
                             </div>
                         </div>

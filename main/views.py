@@ -12,6 +12,8 @@ from django.db.models import Q
 # Create your views here.
 
 def indexHandler(request):
+    cats = Catalog.objects.all()
+    cates = Category.objects.all()
     services = Service.objects.all()
     products = Product.objects.all()
     new_products = Product.objects.filter(is_new=True)
@@ -19,11 +21,13 @@ def indexHandler(request):
     sponsors = Sponsor.objects.all()
     blogs = Blog.objects.filter()
     mains = Main.objects.all()[:3]
-    catalogs = Catalog.objects.all()[:2]
+    catalogs = Catalog.objects.all()[:3]
 
 
     return render(request, 'index-5.html', {
         'services': services,
+        'cats': cats,
+        'cates': cates,
         'products': products,
         'catalogs': catalogs,
         'new_products': new_products,
@@ -36,6 +40,8 @@ def indexHandler(request):
 
 
 def blogHandler(request):
+    cats = Catalog.objects.all()
+    cates = Category.objects.all()
     which_one_id = int(request.GET.get('which_one_id', 0))
 
     limit = int(request.GET.get('limit', 2))
@@ -65,11 +71,15 @@ def blogHandler(request):
         'blogs': blogs,
         'which_one_id': which_one_id,
         'categories': categories,
+        'cats': cats,
+        'cates': cates,
 
     })
 
 
 def blog_detailHandler(request, blog_detail_id):
+    cats = Catalog.objects.all()
+    cates = Category.objects.all()
     blog_detail = Blog.objects.get(id=int(blog_detail_id))
     blog_quote = BlogQoute.objects.all()
     categories = BlogCategory.objects.filter()
@@ -78,6 +88,8 @@ def blog_detailHandler(request, blog_detail_id):
     return render(request, 'blog-details.html', {
         'blog_detail': blog_detail,
         'categories': categories,
+        'cats': cats,
+        'cates': cates,
         'blog_quote': blog_quote,
         'latest_blogs': latest_blogs
     })
@@ -85,16 +97,55 @@ def blog_detailHandler(request, blog_detail_id):
 
 
 def aboutHandler(request):
+    cats = Catalog.objects.all()
+    cates = Category.objects.all()
+    about = About.objects.all()
+    staff = Staff.objects.all()
+    comment = Comment.objects.all()
+    statistics = Statistics.objects.all()
     return render(request, 'about-us.html', {
+        'cats': cats,
+        'cates': cates,
+        'about': about,
+        'staff': staff,
+        'comment': comment,
+        'statistics': statistics
     })
 
 
 def contactHandler(request):
-    return render(request, 'contact-us.html', {
-    })
+    if request.method == 'GET':
+        contact = Contact.objects.all()
+        cats = Catalog.objects.all()
+        cates = Category.objects.all()
+        return render(request, 'contact-us.html', {
+            'contact': contact,
+            'cats': cats,
+            'cates': cates,
+        })
+    else:
+        r = Register()
+        last_name = request.POST.get('last_name', '')
+        first_name = request.POST.get('first_name', '')
+        phone = request.POST.get('phone', '')
+        email = request.POST.get('email', '')
+        message = request.POST.get('message', '')
+
+        r.last_name = last_name
+        r.first_name = first_name
+        r.phone = phone
+        r.email = email
+        r.message = message
+        r.save()
+
+    return JsonResponse({'success': True, 'errorMsg': '', '_success': True})
+
+
 
 
 def shopHandler(request, catalog_id):
+    cats = Catalog.objects.all()
+    cates = Category.objects.all()
     sort_key = request.GET.get('sort_key', 'id')
     # orderby_values = {
     #     'popular': 'is_best_seller',
@@ -147,12 +198,16 @@ def shopHandler(request, catalog_id):
         'current_page': current_page,
         'search_value': search_value,
         'catalogs': catalogs,
+        'cats': cats,
+        'cates': cates,
         'colors': colors,
         'sort_key': sort_key
     })
 
 
 def shopcatHandler(request, cat_id):
+    cats = Catalog.objects.all()
+    cates = Category.objects.all()
     category = Category.objects.get(id=int(cat_id))
     category_types = CategoryType.objects.filter(category__id=int(cat_id))
 
@@ -194,6 +249,8 @@ def shopcatHandler(request, cat_id):
         'stop': stop,
         'total': total,
         'pages': pages,
+        'cats': cats,
+        'cates': cates,
         'current_page': current_page,
         'search_value': search_value,
         'catalogs': catalogs,
@@ -202,6 +259,8 @@ def shopcatHandler(request, cat_id):
 
 
 def shopcattypeHandler(request, cattype_id):
+    cats = Catalog.objects.all()
+    cates = Category.objects.all()
     categorytype = CategoryType.objects.get(id=int(cattype_id))
     category_sizes = CategorySize.objects.filter(categorytype__id=int(cattype_id))
 
@@ -246,10 +305,14 @@ def shopcattypeHandler(request, cattype_id):
         'current_page': current_page,
         'search_value': search_value,
         'catalogs': catalogs,
+        'cats': cats,
+        'cates': cates,
         'colors': colors,
     })
 
 def shopcatsizeHandler(request, catsize_id):
+    cats = Catalog.objects.all()
+    cates = Category.objects.all()
     categorysize = CategorySize.objects.get(id=int(catsize_id))
     products = Product.objects.filter(category__id=int(catsize_id))
 
@@ -275,6 +338,8 @@ def shopcatsizeHandler(request, catsize_id):
         'categorysize': categorysize,
         'products': products,
         'start': start2,
+        'cats': cats,
+        'cates': cates,
         'stop': stop,
         'total': total,
         'pages': pages,
@@ -282,6 +347,8 @@ def shopcatsizeHandler(request, catsize_id):
     })
 
 def productHandler(request, pr_id):
+    cats = Catalog.objects.all()
+    cates = Category.objects.all()
 
     pr = Product.objects.get(id=int(pr_id))
     colors = Color.objects.all()
@@ -290,5 +357,7 @@ def productHandler(request, pr_id):
     return render(request, 'product-details-2.html', {
         'pr': pr,
         'colors': colors,
-        'sizes': sizes
+        'sizes': sizes,
+        'cats': cats,
+        'cates': cates,
     })

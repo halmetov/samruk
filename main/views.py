@@ -168,7 +168,7 @@ def shopHandler(request, catalog_id):
     search_value = request.GET.get('search', None)
 
     total = Product.objects.filter(category__categorytype__category__catalog__id=int(catalog_id)).count()
-    limit_per_page = 3
+    limit_per_page = 6
     limit_per_page_2 = 4
     current_page = 1
     if request.GET.get('page',1):
@@ -220,7 +220,7 @@ def shopcatHandler(request, cat_id):
     search_value = request.GET.get('search', None)
 
     total = Product.objects.filter(category__categorytype__category__id=int(cat_id)).count()
-    limit_per_page = 3
+    limit_per_page = 6
     limit_per_page_2 = 4
     current_page = 1
     if request.GET.get('page', 1):
@@ -273,7 +273,7 @@ def shopcattypeHandler(request, cattype_id):
     search_value = request.GET.get('search', None)
 
     total = Product.objects.filter(category__categorytype__id=int(cattype_id)).count()
-    limit_per_page = 3
+    limit_per_page = 6
     limit_per_page_2 = 4
     current_page = 1
     if request.GET.get('page', 1):
@@ -318,7 +318,7 @@ def shopcatsizeHandler(request, catsize_id):
 
 
     total = Product.objects.filter(category__id=int(catsize_id)).count()
-    limit_per_page = 3
+    limit_per_page = 6
     limit_per_page_2 = 4
     current_page = 1
     if request.GET.get('page', 1):
